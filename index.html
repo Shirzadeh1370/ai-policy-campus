@@ -1,0 +1,140 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI Assistant Policy Campus</title><link rel="stylesheet" href="style.css"></head><body>
+<header><b>COLLEGE <i>AI</i></b><div class="top-actions">
+<label class="lang-label">🌐 <span>Language</span><select id="language" aria-label="Choose language">
+<option value="en">English</option><option value="fa">فارسی</option><option value="es">Español</option><option value="ar">العربية</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="zh">中文</option><option value="hi">हिन्दी</option><option value="tr">Türkçe</option><option value="ur">اردو</option>
+</select></label>
+<button id="accessBtn" class="access-btn" aria-expanded="false">♿ Accessibility</button>
+<span class="policy-first">AI Policy First.</span></div></header>
+<aside id="accessPanel" class="access-panel hidden" aria-label="Accessibility options">
+<b>Accessibility</b>
+<button id="textPlus">A+ Larger text</button>
+<button id="contrast">◐ High contrast</button>
+<button id="motion">◌ Reduce motion</button>
+<button id="readPage">🔊 Read page</button>
+<span id="voiceStatus" class="voice-status" role="status" aria-live="polite"></span>
+<p>Keyboard-friendly controls, visible focus, screen-reader labels, and color + text status are included.</p>
+</aside>
+<main>
+<section class="hero"><p class="welcome">Welcome to your</p><h1>AI Assistant Policy Campus</h1><p>Add your syllabus and assignment. Get a clear answer, a professor email, and a safe AI prompt.</p></section>
+<section class="courses-bar" aria-label="My courses">
+<div><b>My Courses</b><small>Keep each class and its policy in one place.</small></div>
+<div id="courseTabs" class="course-tabs"></div>
+<button id="addCourse" class="add-course">＋ Add Class</button>
+<form id="addCourseForm" class="add-course-form hidden"><label for="newCourseName">Course name</label><input id="newCourseName" maxlength="50" autocomplete="off" placeholder="Example: BIO 101"><div><button type="submit" id="saveCourseName">Add</button><button type="button" id="cancelCourseName" class="secondary">Cancel</button></div></form>
+</section>
+<nav id="steps" aria-label="Progress"><span class="active">1 Upload</span><span>2 Sources</span><span>3 AI Use</span><span>4 Decision</span><span>5 Ask Professor</span></nav>
+
+<section class="card">
+<div class="num">1</div><div class="body"><small>START HERE</small><h2>Upload your syllabus or assignment</h2><p>We’ll use the information you provide to help identify the AI rules for this specific work.</p>
+<div class="grid"><label>Course<input id="course" placeholder="ENGL 102"></label><label>Professor<input id="prof" placeholder="Professor name"></label></div>
+<label>Professor Email <input id="profEmail" type="email" placeholder="professor@college.edu"></label>
+<div class="doc-upload-grid">
+<div>
+<div class="upload syllabus-upload" data-upload="syllabusFile" tabindex="0" role="group" aria-labelledby="syllabusUploadTitle">
+<span class="upload-symbol" aria-hidden="true">📘</span><b id="syllabusUploadTitle">Upload Syllabus</b><span class="upload-format">PDF, Word, or TXT</span>
+<input id="syllabusFile" class="visually-hidden-file" type="file" accept=".pdf,.doc,.docx,.txt" aria-describedby="syllabusFileName">
+<button type="button" id="chooseSyllabus" class="choose-file">Choose syllabus file</button><small id="syllabusFileName" class="chosen-file">No file selected</small>
+</div>
+<button type="button" id="syllabusHelpBtn" class="help-link" aria-expanded="false">? Where can I find my syllabus?</button>
+<div id="syllabusHelp" class="syllabus-help hidden">
+<b>Usually in your college course page:</b>
+<p>Open your class → look for <strong>Syllabus</strong>, <strong>Course Information</strong>, <strong>Modules</strong>, or <strong>Files</strong> → download the PDF/Word file → upload it here.</p>
+<p>If you still can’t find it, ask your professor where the current syllabus is posted.</p>
+</div>
+<p id="syllabusSaveGuide" class="save-syllabus-guide">💡 Need a copy? Open the syllabus page and press <kbd>Ctrl</kbd> + <kbd>P</kbd>, then choose <strong>Save as PDF</strong>. For Word, copy the syllabus text into Word and save it as a <strong>.docx</strong> file.</p>
+</div>
+<div class="upload assignment-upload" data-upload="assignmentFile" tabindex="0" role="group" aria-labelledby="assignmentUploadTitle">
+<span class="upload-symbol" aria-hidden="true">📝</span><b id="assignmentUploadTitle">Upload Assignment</b><span class="upload-format">Optional — add it when checking a specific task</span>
+<input id="assignmentFile" class="visually-hidden-file" type="file" accept=".pdf,.doc,.docx,.txt" aria-describedby="assignmentFileName">
+<button type="button" id="chooseAssignment" class="choose-file">Choose assignment file</button><small id="assignmentFileName" class="chosen-file">No file selected</small>
+</div>
+</div>
+<div id="uploadedDocs" class="uploaded-docs" aria-live="polite"></div>
+<section id="tourEntry" class="tour-entry" aria-labelledby="tourEntryTitle">
+<div><small>AI GUIDED TOUR</small><h3 id="tourEntryTitle">🎧 Turn your course documents into a guided conversation.</h3><p>Your files stay in this browser. Choose a tour after a document is ready.</p><p class="free-voice-note">✨ Free natural English voices powered locally by Kokoro. Other languages use your browser voice.</p></div>
+<div class="tour-entry-actions"><button type="button" id="syllabusTourButton" class="secondary" disabled>📘 Start Syllabus Tour</button><button type="button" id="assignmentTourButton" class="secondary" disabled>📝 Start Assignment Tour</button></div>
+</section>
+<label>Or paste the relevant policy / instructions<textarea id="policy" placeholder="Paste policy or assignment instructions..."></textarea></label>
+<div class="demo-ready-row">
+<button type="button" id="loadDemoSyllabus" class="secondary">⚡ Try Demo Syllabus</button>
+<span id="naturalVoiceReady" class="voice-ready" role="status" aria-live="polite">🎙 Natural voice loads when you open the tour.</span>
+</div>
+<div class="quick-actions"><button type="button" id="samplePolicy" class="secondary">Try an example</button><button type="button" id="clearPolicy" class="text-button">Clear</button><span id="saveStatus" role="status">Saved on this device</span></div>
+<div id="formMessage" class="form-message hidden" role="alert"></div>
+<div class="primary-actions"><button id="start">Check My AI Use →</button><button id="createAid" class="secondary">♿ Create Accessible Study Aid</button></div></div></section>
+
+<section id="accessibleAid" class="accessible-aid hidden" aria-live="polite">
+<div id="demoNotice" class="demo-notice"><b>PRIVATE DEMO</b><span>PDF text is read locally in your browser. Your file is not uploaded to a server.</span></div>
+<div class="aid-heading"><span class="aid-icon">♿</span><div><small>ACCESSIBLE LEARNING</small><h2>Your lesson in a format that works for you</h2><p>Created from the text you uploaded or pasted. Review it before studying.</p></div></div>
+<div class="aid-options" role="group" aria-label="Choose study format"><button id="audioAid" class="secondary">🔊 Create & listen</button><button id="pauseAid" class="secondary">⏸ Pause</button><a id="downloadAudio" class="button-link hidden" download="study-guide.mp3">↓ Download audio</a><button id="visualAid" class="secondary">▦ Create visual study card</button><a id="downloadImage" class="button-link hidden" download="study-card.png">↓ Download image</a><button id="copyAidPrompt" class="secondary">✦ Copy media prompt</button></div>
+<div id="visualLesson" class="visual-lesson"><b id="lessonTitle">Study guide</b><p id="lessonSummary"></p><ol id="lessonPoints"></ol></div>
+<div id="generatedMedia" class="generated-media hidden"><img id="studyImage" alt="AI-generated accessible educational study card"></div>
+<label class="aid-prompt-label">Accessible media prompt<textarea id="aidPrompt" readonly></textarea></label><span id="aidStatus" class="copy-status" role="status"></span>
+</section>
+
+<section id="guidedTour" class="guided-tour hidden" aria-labelledby="guidedTourTitle">
+<div class="tour-topline"><div><small>AI GUIDED TOUR</small><h2 id="guidedTourTitle">Your guided course conversation</h2><p id="guidedTourSubtitle">Built only from the document you selected.</p></div><button type="button" id="closeTour" class="text-button" aria-label="Close guided tour">✕ Close</button></div>
+<div class="tour-settings">
+<fieldset><legend>Tour length</legend><label><input type="radio" name="tourLength" value="quick"> Quick</label><label><input type="radio" name="tourLength" value="standard" checked> Standard</label><label><input type="radio" name="tourLength" value="detailed"> Detailed</label></fieldset>
+<div id="tourLanguageNote" class="tour-language-note" role="status"></div>
+</div>
+<nav id="tourTopics" class="tour-topics" aria-label="Tour topics"></nav>
+<div class="tour-stage">
+<article id="tourVisual" class="tour-visual" aria-live="polite"><span id="tourIcon" aria-hidden="true">🎓</span><small id="tourTopicLabel">Overview</small><h3 id="tourCardTitle">Choose a tour to begin</h3><ul id="tourCardItems"><li>No audio starts automatically.</li></ul><div id="tourPolicyStatus" class="tour-policy-status hidden"></div></article>
+<section class="tour-dialogue" aria-label="Guided dialogue"><div id="tourCurrentLine" class="tour-current-line" aria-live="polite"><b>GUIDE</b><p>Your document is ready for a guided tour.</p></div><button type="button" id="transcriptToggle" class="text-button" aria-expanded="false">Show transcript</button><ol id="tourTranscript" class="tour-transcript hidden"></ol></section>
+</div>
+<div class="tour-controls" role="group" aria-label="Tour playback controls"><button type="button" id="tourPrevious" class="secondary">⏮ Previous</button><div class="podcast-build-box">
+<button type="button" id="buildPodcast" class="primary">✨ Create Complete Podcast</button>
+<div class="podcast-build-progress"><span id="podcastBuildBar"></span></div>
+<div id="podcastBuildText" class="podcast-build-text" role="status" aria-live="polite">Analyze the tour, generate both voices, and join everything into one continuous audio file.</div>
+</div>
+<button type="button" id="tourPlay">▶ Play</button><button type="button" id="tourPause" class="secondary">⏸ Pause</button><button type="button" id="tourNext" class="secondary">Next ⏭</button><button type="button" id="tourStop" class="secondary">⏹ Stop</button><label>Speed <select id="tourSpeed"><option value="0.8">0.8×</option><option value="1" selected>1×</option><option value="1.2">1.2×</option><option value="1.5">1.5×</option></select></label></div>
+<p id="tourStatus" class="tour-status" role="status" aria-live="polite"></p>
+</section>
+
+<div id="flow" class="hidden">
+<section id="policySources" class="card"><div class="num">2</div><div class="body"><small>POLICY SOURCES</small><h2>Rules that may apply</h2>
+<div class="sources"><article><b>📘 Course Policy</b><em id="courseStatus">Student-provided syllabus</em></article><article><b>🏫 College Policy</b><em>Academic integrity / plagiarism</em></article><article><b>🏛 State / System Guidance</b><em>Official AI guidance, when applicable</em></article></div>
+<p class="note">Prototype: official school and state links will be connected here.</p></div></section>
+
+<section id="resources" class="resources-section"><small>RESOURCES</small><h2>Trusted links & free tools</h2><p>Reliable guidance and useful tools for responsible student work.</p><div class="resource-grid">
+<a href="https://owl.purdue.edu/owl/avoiding_plagiarism/index.html" target="_blank" rel="noopener"><span>📄</span><div><b>Academic integrity & plagiarism</b><small>Learn how to avoid plagiarism and use sources responsibly.</small><u>Open resource →</u></div></a>
+<a href="https://eric.ed.gov/?id=ED661924" target="_blank" rel="noopener"><span>🏛</span><div><b>State & system AI guidance</b><small>Safe, ethical, and equitable guidance for AI in education.</small><u>Open resource →</u></div></a>
+<a href="https://grow.google/students/" target="_blank" rel="noopener"><span>🛠</span><div><b>Free & low-cost AI tools</b><small>Student learning, research, writing, and career tools.</small><u>Open resource →</u></div></a>
+</div></section>
+
+<section class="card"><div class="num">3</div><div class="body"><small>AI TOOL + PURPOSE</small><h2>What do you want AI to help with?</h2>
+<div id="uses" class="chips"><button data-u="brainstorming">Brainstorming</button><button data-u="explaining concepts">Explain concepts</button><button data-u="grammar feedback">Grammar / feedback</button><button data-u="research assistance">Research</button><button data-u="coding assistance">Coding</button><button data-u="writing the graded answer">Write my answer</button><button data-u="quiz or test answers">Quiz / Test</button></div>
+<p class="selection-hint">Choose the closest match. Your result applies only to this use.</p>
+<label>Preferred AI tool<select id="tool"><option>ChatGPT</option><option>Microsoft Copilot</option><option>Google Gemini</option><option>Claude</option><option>Other AI tool</option></select></label>
+<button id="decide">Show My Decision →</button></div></section>
+
+<section id="resultCard" class="card hidden"><div class="num">4</div><div class="body"><small>YOUR RESULT</small>
+
+<section class="ai-policy-legend" id="aiPolicyLegend" aria-labelledby="aiPolicyLegendTitle">
+  <div>
+    <small>AI POLICY DECISION</small>
+    <h2 id="aiPolicyLegendTitle">What do the AI policy lights mean?</h2>
+    <p>The light applies to the <strong>specific AI use you select</strong>, not to AI in general.</p>
+  </div>
+  <div class="policy-light-grid">
+    <div class="policy-light-card green"><span class="policy-dot" aria-hidden="true"></span><div><strong>GREEN — Allowed</strong><p>The available policy evidence supports this specific AI use.</p></div></div>
+    <div class="policy-light-card yellow"><span class="policy-dot" aria-hidden="true"></span><div><strong>YELLOW — Check First</strong><p>The rule is unclear or incomplete. Ask the professor before using AI.</p></div></div>
+    <div class="policy-light-card red"><span class="policy-dot" aria-hidden="true"></span><div><strong>RED — Not Allowed</strong><p>The available policy explicitly restricts this specific AI use.</p></div></div>
+  </div>
+</section>
+
+<div id="result" class="result yellow"><div class="light"><i></i><i></i><i></i></div><div><h2 id="title">CHECK FIRST</h2><p id="text"></p></div></div>
+<div class="why"><b>Why?</b><p id="evidence"></p></div><p class="note">This result is about the specific AI use you selected — not AI in general.</p></div></section>
+
+<section id="nextSteps" class="card hidden"><div class="num">✓</div><div class="body"><small>WHAT TO DO NOW</small><h2>Your next steps</h2><ul id="checklist" class="checklist"></ul><button id="checkAnother" class="secondary">Check another AI use</button></div></section>
+
+<section id="promptCard" class="card hidden"><div class="num">✦</div><div class="body"><small>SAFE AI PROMPT</small><h2>Prompt for your AI tool</h2><p>Use this prompt to keep the AI focused on learning instead of doing the assignment for you.</p><pre id="safePrompt"></pre><button id="copyPrompt">Copy safe prompt</button><span id="promptCopyStatus" class="copy-status" role="status"></span></div></section>
+
+<section id="ask" class="card hidden"><div class="num">5</div><div class="body"><small>WHEN IT'S UNCLEAR</small><h2>Ask My Professor</h2><p>We use the course, AI tool, selected use, and unclear policy to prepare the question.</p><pre id="email"></pre><div class="email-actions"><button id="copy">Copy Professor Email</button><a id="openEmail" class="button-link" href="#">Open email app</a></div><span id="copyStatus" class="copy-status" role="status"></span></div></section>
+</div>
+</main>
+<button id="floatingCheck" class="floating-check" type="button" aria-label="Check my AI use">
+<span class="floating-icon" aria-hidden="true">✓</span><span><b>Check My AI Use</b><small>Clear, private & student-friendly</small></span>
+</button>
+<footer><b>AI Policy First.</b> Learning Always.</footer><link rel="stylesheet" href="policy-resources.css"><link rel="stylesheet" href="guided-tour.css"><script src="app.js"></script><script src="policy-resources.js"></script><script src="demo-fixes.js"></script><script type="module" src="pdf-reader.js"></script><script defer src="https://cdn.jsdelivr.net/npm/mammoth@1.10.0/mammoth.browser.min.js"></script><script defer src="guided-tour.js"></script><script defer src="final-demo.js"></script></body></html>
